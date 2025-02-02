@@ -23,7 +23,7 @@ class ScientistController extends Controller
      */
     public function create()
     {
-        //
+        return view('scientists.create');
     }
 
     /**
@@ -31,7 +31,14 @@ class ScientistController extends Controller
      */
     public function store(StoreScientistRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'name'=>'required|string|max:100',
+            'age'=>'required|integer|min:18|max:100',
+        ]);
+
+        Scientist::create($validated);
+
+        return redirect()->route('scientist.index')->with('success','Scientist Created!');
     }
 
     /**
@@ -39,7 +46,7 @@ class ScientistController extends Controller
      */
     public function show(Scientist $scientist)
     {
-        //
+        return view('scientists.show',['scientist'=>$scientist]);
     }
 
     /**
@@ -47,7 +54,7 @@ class ScientistController extends Controller
      */
     public function edit(Scientist $scientist)
     {
-        //
+        return view('scientists.edit', ['scientist'=>$scientist]);
     }
 
     /**
@@ -55,7 +62,14 @@ class ScientistController extends Controller
      */
     public function update(UpdateScientistRequest $request, Scientist $scientist)
     {
-        //
+        $validated = $request->validate([
+            'name'=>'required|string|max:100',
+            'age'=>'required|integer|min:18|max:100',
+        ]);
+
+        $scientist->update($validated);
+
+        return redirect()->route('scientist.index')->with('success','Scientist Updated!');
     }
 
     /**
@@ -63,6 +77,8 @@ class ScientistController extends Controller
      */
     public function destroy(Scientist $scientist)
     {
-        //
+        $scientist->delete();
+
+        return redirect()->route('scientist.index')->with('success','Scientist Deleted!');
     }
 }

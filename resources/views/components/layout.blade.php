@@ -20,9 +20,9 @@
       <a href="{{ route('scientist.index') }}"> 
         All Scientists
       </a>
-      {{--      <a href="{{ route('ninjas.create') }}">
+      <a href="{{ route('scientists.create') }}">
         Create New Scientist
-      </a>--}}
+      </a>
 
     </nav>
   </header>

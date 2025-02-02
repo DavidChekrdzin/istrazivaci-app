@@ -4,7 +4,7 @@
     <ul>
       @foreach($scientists as $scientist)
         <li>
-          <x-card :highlight="$scientist['age'] > 30" href="">
+          <x-card :highlight="$scientist['age'] > 30" href="{{route('scientists.show', $scientist->id)}}">
             <div>
               <h3>Name: {{ $scientist->name }}</h3>
               <p>Age: {{ $scientist->age }}</p>
@@ -14,6 +14,6 @@
       @endforeach
 
     </ul>
-  {{--{{ $ninjas->links() }}--}}
-    
+
+  {{ $scientists->links() }}
   </x-layout>
