@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Scientist;
 use App\Http\Requests\StoreScientistRequest;
 use App\Http\Requests\UpdateScientistRequest;
+use App\Models\ScienceProject;
 
 class ScientistController extends Controller
 {
@@ -13,7 +14,7 @@ class ScientistController extends Controller
      */
     public function index()
     {
-        $scientists = Scientist::orderBy('created_at')->paginate(10);
+        $scientists = Scientist::with('science_project')->orderBy('created_at')->paginate(10);
 
         return view('scientists.index', ['scientists' => $scientists]);
     }
@@ -23,7 +24,9 @@ class ScientistController extends Controller
      */
     public function create()
     {
-        return view('scientists.create');
+        $scienceProjects = ScienceProject::all();
+
+        return view('scientists.create',['scienceProjects'=>$scienceProjects]);
     }
 
     /**
@@ -34,6 +37,7 @@ class ScientistController extends Controller
         $validated = $request->validate([
             'name'=>'required|string|max:100',
             'age'=>'required|integer|min:18|max:100',
+            'science_project_id'=>'required|exists:science_projects,id',
         ]);
 
         Scientist::create($validated);
@@ -46,6 +50,8 @@ class ScientistController extends Controller
      */
     public function show(Scientist $scientist)
     {
+        $scientist->load('science_project');
+
         return view('scientists.show',['scientist'=>$scientist]);
     }
 
@@ -54,7 +60,10 @@ class ScientistController extends Controller
      */
     public function edit(Scientist $scientist)
     {
-        return view('scientists.edit', ['scientist'=>$scientist]);
+        $scienceProjects = ScienceProject::all();
+
+
+        return view('scientists.edit', ['scientist'=>$scientist, 'scienceProjects'=>$scienceProjects]);
     }
 
     /**
@@ -65,6 +74,7 @@ class ScientistController extends Controller
         $validated = $request->validate([
             'name'=>'required|string|max:100',
             'age'=>'required|integer|min:18|max:100',
+            'science_project_id'=>'required|exists:science_projects,id',
         ]);
 
         $scientist->update($validated);

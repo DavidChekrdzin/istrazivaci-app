@@ -25,17 +25,17 @@
         required
       >
   
-      {{--
-            <label for="dojo_id">Dojo:</label>
-      <select id="dojo_id" name="dojo_id" required>
+      
+            <label for="science_project_id">Science Project:</label>
+      <select id="science_project_id" name="science_project_id" required>
         <option value="" disabled selected>Select a dojo</option>
-        @foreach ($dojos as $dojo)
-          <option value="{{ $dojo->id }}" {{ $dojo->id == old('dojo_id') ? 'selected' : '' }}>
-            {{ $dojo->name }}
+        @foreach ($scienceProjects as $science_project)
+          <option value="{{ $science_project->id }}" {{ $science_project->id == old('science_project_id') ? 'selected' : '' }}>
+            {{ $science_project->name }}
           </option>
         @endforeach
       </select>
-      --}}
+      
 
   
       <button type="submit" class="btn mt-4">Create Scientist</button>

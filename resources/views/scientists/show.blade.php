@@ -5,15 +5,13 @@
       <p><strong>Age:</strong> {{ $scientist->age }}</p>
     </div>
   
-    {{--
+    
         <div class="border-2 border-dashed bg-white px-4 pb-4 my-4 rounded">
-      <h3>Dojo Information</h3>
-      <p><strong>Dojo name:</strong> {{ $ninja->dojo->name }}</p>
-      <p><strong>Location:</strong> {{ $ninja->dojo->location }}</p>
-      <p><strong>About the Dojo:</strong></p>
-      <p>{{ $ninja->dojo->description }}</p>
+      <h3>Science Project Information</h3>
+      <p><strong>Science Project name:</strong> {{ $scientist->science_project->name }}</p>
+      <p><strong>Project Description:</strong> {{ $scientist->science_project->description }}</p>
     </div>
-    --}}
+    
 
     <form action="{{ route('scientists.destroy', $scientist->id) }}" method="POST">
       @csrf

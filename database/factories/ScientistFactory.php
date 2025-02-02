@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ScienceProject;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class ScientistFactory extends Factory
         return [
             'name' => fake()->name(),
             'age' => fake()->numberBetween(1, 100),
+            'science_project_id' => ScienceProject::inRandomOrder()->first()->id,
         ];
     }
 }

@@ -8,6 +8,7 @@
             <div>
               <h3>Name: {{ $scientist->name }}</h3>
               <p>Age: {{ $scientist->age }}</p>
+              <p>Science Project: {{ $scientist->science_project->name }}</p>
             </div>
           </x-card>
         </li>
