@@ -13,7 +13,9 @@ class ScienceProjectController extends Controller
      */
     public function index()
     {
-        //
+        $scienceProjects = ScienceProject::with('scientists')->orderBy('created_at')->paginate(5);
+
+        return view('scienceprojects.index', ['scienceProjects' => $scienceProjects]);
     }
 
     /**
@@ -21,7 +23,7 @@ class ScienceProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('scienceprojects.create');
     }
 
     /**
@@ -29,7 +31,14 @@ class ScienceProjectController extends Controller
      */
     public function store(StoreScienceProjectRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'name'=>'required|string|max:100',
+            'description'=>'required|string|max:1000',
+        ]);
+
+        ScienceProject::create($validated);
+
+        return redirect()->route('scienceprojects.index')->with('success','Science Project Created!');
     }
 
     /**
@@ -37,7 +46,9 @@ class ScienceProjectController extends Controller
      */
     public function show(ScienceProject $scienceProject)
     {
-        //
+        $scienceProject->load('scientists');
+
+        return view('scienceprojects.show',['scienceProject'=>$scienceProject]);
     }
 
     /**
@@ -45,7 +56,7 @@ class ScienceProjectController extends Controller
      */
     public function edit(ScienceProject $scienceProject)
     {
-        //
+        return view('scienceprojects.edit', ['scienceProject'=>$scienceProject]);
     }
 
     /**
@@ -53,7 +64,14 @@ class ScienceProjectController extends Controller
      */
     public function update(UpdateScienceProjectRequest $request, ScienceProject $scienceProject)
     {
-        //
+        $validated = $request->validate([
+            'name'=>'required|string|max:100',
+            'description'=>'required|string|max:1000',
+        ]);
+
+        $scienceProject->update($validated);
+
+        return redirect()->route('scienceprojects.index')->with('success','Science Project Updated!');
     }
 
     /**
@@ -61,6 +79,8 @@ class ScienceProjectController extends Controller
      */
     public function destroy(ScienceProject $scienceProject)
     {
-        //
+        $scienceProject->delete();
+
+        return redirect()->route('scienceprojects.index')->with('success','Science Project Deleted!');
     }
 }

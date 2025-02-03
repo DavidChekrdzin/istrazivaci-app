@@ -23,7 +23,12 @@
       <a href="{{ route('scientists.create') }}">
         Create New Scientist
       </a>
-
+      <a href="{{ route('scienceprojects.index') }}">
+        All Science Projects
+      </a>
+      <a href="{{ route('scienceprojects.create') }}">
+        Create New Science Project
+      </a>
     </nav>
   </header>
 
